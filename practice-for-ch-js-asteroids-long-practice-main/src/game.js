@@ -13,7 +13,7 @@ class Game {
     addAsteroids() {
         while (this.asteroids.length < Game.NUM_ASTEROIDS) {
             const position = this.randomPosition();
-            const ast = new Asteroid({pos: position});
+            const ast = new Asteroid({pos: position, game: this});
             this.asteroids.push(ast);
         }
     }
@@ -30,6 +30,24 @@ class Game {
             asteroid.move();
         })
 
+    }
+
+    wrap(pos) {
+        let x = pos[0];
+        let y = pos[1];
+        if (x < 0) { 
+            x = Game.DIM_X;
+        } else if (x > Game.DIM_X){
+            x = 0;
+        }
+        
+        if (y < 0) { 
+            y = Game.DIM_Y;
+        } else if (y > Game.DIM_Y){
+            y = 0;
+        }
+
+        return [x, y];
     }
   
     randomPosition() {
