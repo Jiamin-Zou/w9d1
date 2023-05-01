@@ -21,6 +21,21 @@ class MovingObject {
         this.pos[1] += this.vel[1];
         this.pos = this.game.wrap(this.pos);
     }
+    
+    isCollidedWith(otherObject) {
+        const c1 = this.pos;
+        const c2 = otherObject.pos;
+        const distance = Math.sqrt( (c1[0] - c2[0]) ** 2 + (c1[1] - c2[1]) ** 2 )
+        return distance < (this.radius + otherObject.radius)
+
+    }
+
+    collideWith(otherObject) {
+        this.game.remove(this)
+        this.game.remove(otherObject);
+        return true;
+    }
+
   }
   
   export default MovingObject;

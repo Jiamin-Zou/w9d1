@@ -36,18 +36,42 @@ class Game {
         let x = pos[0];
         let y = pos[1];
         if (x < 0) { 
-            x = Game.DIM_X;
+            x += Game.DIM_X;
         } else if (x > Game.DIM_X){
-            x = 0;
+            x -= Game.DIM_X;
         }
         
         if (y < 0) { 
-            y = Game.DIM_Y;
+            y += Game.DIM_Y;
         } else if (y > Game.DIM_Y){
-            y = 0;
+            y -= Game.DIM_Y;
         }
 
         return [x, y];
+    }
+    
+    checkCollisions() {
+        for (let i = 0; i < this.asteroids.length - 1; i++) {
+            for (let j = i + 1; j < this.asteroids.length; j++) {
+                const obj1 = this.asteroids[i];
+                const obj2 = this.asteroids[j];
+                if ( obj1.isCollidedWith(obj2))  {
+                    // alert("COLLISION")
+                    const collision = obj1.collideWith(obj2);
+                    if (collision) return;
+                }
+            }
+        }
+    }
+
+    step() {
+        this.moveObjects();
+        this.checkCollisions();
+    }
+
+    remove(asteroid) {
+        const idx = this.asteroids.indexOf(asteroid);
+        this.asteroids.splice(idx, 1);
     }
   
     randomPosition() {
