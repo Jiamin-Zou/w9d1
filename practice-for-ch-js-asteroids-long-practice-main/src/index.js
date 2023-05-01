@@ -1,19 +1,15 @@
-import MovingObject from "./moving_object.js";
+// import MovingObject from "./moving_object.js";
 
-window.MovingObject = MovingObject;
+// window.MovingObject = MovingObject;
+
+import Asteroid from "./asteroid.js";
+
 
 const canvas = document.getElementById("game-canvas");
-canvas.width = 600;
-canvas.height = 600;
 const ctx = canvas.getContext("2d");
 
-// const mo = new MovingObject({
-//     pos: [150, 150],
-//     vel: [10, 10],
-//     radius: 50,
-//     color: "red"
-//   });
+const mo = new Asteroid({ pos: [30, 30] });
 
-//   mo.draw(ctx);
+  mo.draw(ctx);
 //   setInterval(() => {mo.move(); mo.draw(ctx)},20)
 
