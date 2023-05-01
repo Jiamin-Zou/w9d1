@@ -1,13 +1,20 @@
 import Asteroid from "./asteroid.js";
+import Ship from "./ship.js";
 
 class Game {
     static DIM_X = 1500;
     static DIM_Y = 900;
-    static NUM_ASTEROIDS = 10;
+    static NUM_ASTEROIDS = 5;
 
     constructor(){
         this.asteroids = [];
+        const position = this.randomPosition();
+        this.ship = new Ship({pos: position, game: this})
         this.addAsteroids();
+    }
+
+    allObjects() {
+        return this.asteroids.concat([this.ship]);
     }
 
     addAsteroids() {
@@ -20,16 +27,15 @@ class Game {
 
     draw(ctx) {
         ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
-        this.asteroids.forEach( asteroid => {
-            asteroid.draw(ctx);
+        this.allObjects().forEach( obj => {
+            obj.draw(ctx);
         })
     }
     
     moveObjects() {
-        this.asteroids.forEach( asteroid => {
-            asteroid.move();
+        this.allObjects().forEach( obj => {
+            obj.move();
         })
-
     }
 
     wrap(pos) {
@@ -51,10 +57,11 @@ class Game {
     }
     
     checkCollisions() {
-        for (let i = 0; i < this.asteroids.length - 1; i++) {
-            for (let j = i + 1; j < this.asteroids.length; j++) {
-                const obj1 = this.asteroids[i];
-                const obj2 = this.asteroids[j];
+        const allObj = this.allObjects();
+        for (let i = 0; i < allObj.length - 1; i++) {
+            for (let j = i + 1;  j < allObj.length; j++) {
+                const obj1 = allObj[i];
+                const obj2 = allObj[j];
                 if ( obj1.isCollidedWith(obj2))  {
                     // alert("COLLISION")
                     const collision = obj1.collideWith(obj2);

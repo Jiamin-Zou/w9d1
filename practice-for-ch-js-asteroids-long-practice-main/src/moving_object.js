@@ -30,10 +30,8 @@ class MovingObject {
 
     }
 
-    collideWith(otherObject) {
-        this.game.remove(this)
-        this.game.remove(otherObject);
-        return true;
+    collideWith() {
+
     }
 
   }
