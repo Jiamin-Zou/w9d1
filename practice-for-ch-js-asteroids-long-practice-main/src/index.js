@@ -3,12 +3,14 @@
 // window.MovingObject = MovingObject;
 
 import Game from "./game.js";
+import GameView from "./game_view.js";
 
 
 const canvas = document.getElementById("game-canvas");
+canvas.width = Game.DIM_X;
+canvas.height = Game.DIM_Y;
 const ctx = canvas.getContext("2d");
 
-const ga = new Game();
-ga.draw(ctx);
-ga.moveObjects();
-setInterval(() => { ga.draw(ctx); ga.moveObjects();},50) 
+const gv = new GameView(ctx)
+
+gv.start()

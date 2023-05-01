@@ -6,15 +6,15 @@ class Game {
     static NUM_ASTEROIDS = 10;
 
     constructor(){
-        this.addAsteroids()
+        this.asteroids = [];
+        this.addAsteroids();
     }
 
     addAsteroids() {
-        this.asteroids = [];
         while (this.asteroids.length < Game.NUM_ASTEROIDS) {
-            const position = this.randomPosition()
-        const ast = new Asteroid({pos: position});
-        this.asteroids.push(ast)
+            const position = this.randomPosition();
+            const ast = new Asteroid({pos: position});
+            this.asteroids.push(ast);
         }
     }
 
